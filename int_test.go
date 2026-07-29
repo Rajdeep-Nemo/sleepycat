@@ -7,14 +7,6 @@ import (
 	"github.com/Rajdeep-Nemo/sleepycat/internal"
 )
 
-// helper: feeds the given lines (each terminated with \n) as stdin,
-// and resets back to the real os.Stdin after the test finishes.
-func withInput(t *testing.T, lines ...string) {
-	t.Helper()
-	internal.SetInput(strings.NewReader(strings.Join(lines, "\n") + "\n"))
-	t.Cleanup(internal.ResetInput)
-}
-
 func TestInt_ValidInput(t *testing.T) {
 	withInput(t, "42")
 
@@ -191,7 +183,6 @@ func TestInt_ReturnsUnderlyingParseError(t *testing.T) {
 	}
 }
 
-// -------------------------------------------------------------------------------------------
 func TestInt_MinLength_TooShortThenValid(t *testing.T) {
 	// "5" is 1 char, fails MinLength(4); "1234" is 4 chars, passes.
 	withInput(t, "5", "1234")
