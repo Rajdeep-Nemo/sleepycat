@@ -190,6 +190,7 @@ func TestInt_ReturnsUnderlyingParseError(t *testing.T) {
 		t.Errorf("expected underlying strconv error to mention the bad input, got: %v", err)
 	}
 }
+
 // -------------------------------------------------------------------------------------------
 func TestInt_MinLength_TooShortThenValid(t *testing.T) {
 	// "5" is 1 char, fails MinLength(4); "1234" is 4 chars, passes.
