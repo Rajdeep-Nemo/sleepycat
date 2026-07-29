@@ -1,8 +1,11 @@
 package sleepycat
 
 type config struct {
-	prompt     string
-	maxAttempt int
+	prompt     string // Input prompt
+	maxAttempt int    // Maximum attempt before proper input
+	mask       rune   // Mask the input with provided symbol
+	minLimit   int    // Minimum length
+	maxLimit   int    // Maximum length
 }
 
 type option func(*config)
@@ -23,5 +26,12 @@ func Prompt(inputPrompt string) option {
 func MaxAttempt(count int) option {
 	return func(c *config) {
 		c.maxAttempt = count
+	}
+}
+
+func Limit(min, max int) option {
+	return func(c *config) {
+		c.minLimit = min
+		c.maxLimit = max
 	}
 }
