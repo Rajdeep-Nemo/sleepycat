@@ -4,8 +4,8 @@ type config struct {
 	prompt     string // Input prompt
 	maxAttempt int    // Maximum attempt before proper input
 	mask       rune   // Mask the input with provided symbol
-	minLimit   int    // Minimum length
-	maxLimit   int    // Maximum length
+	minLength  int    // Minimum length
+	maxLength  int    // Maximum length
 }
 
 type option func(*config)
@@ -14,6 +14,8 @@ func defaultConfig() config {
 	return config{
 		prompt:     "",
 		maxAttempt: 1,
+		minLength:  1,
+		maxLength:  -1,
 	}
 }
 
@@ -29,14 +31,14 @@ func MaxAttempt(count int) option {
 	}
 }
 
-func MinLimit(min int) option {
+func MinLength(min int) option {
 	return func(c *config) {
-		c.minLimit = min
+		c.minLength = min
 	}
 }
 
-func MaxLimit(max int) option {
+func MaxLength(max int) option {
 	return func(c *config) {
-		c.minLimit = max
+		c.maxLength = max
 	}
 }
