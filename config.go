@@ -29,9 +29,14 @@ func MaxAttempt(count int) option {
 	}
 }
 
-func Limit(min, max int) option {
+func MinLimit(min int) option {
 	return func(c *config) {
 		c.minLimit = min
-		c.maxLimit = max
+	}
+}
+
+func MaxLimit(max int) option {
+	return func(c *config) {
+		c.minLimit = max
 	}
 }
