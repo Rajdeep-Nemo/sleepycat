@@ -89,7 +89,3 @@ sleepycat/
 | `examples/`            | Runnable examples demonstrating the public API.                                           |
 | `*_test.go`            | Unit tests for each public input type.                                                    |
 
-
-## License
-
-MIT
