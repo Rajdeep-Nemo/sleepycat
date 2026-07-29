@@ -11,7 +11,7 @@ import (
 // Store the bufio.Reader globally so buffer state is preserved across reads
 var reader = bufio.NewReader(os.Stdin)
 
-// ** SetInput and ResetInput functions are meant for test case only **
+// ** SetInput and ResetInput functions are meant for test cases only **
 // Changes the input source.
 func SetInput(r io.Reader) {
 	if r != nil {

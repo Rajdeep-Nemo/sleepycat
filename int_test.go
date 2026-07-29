@@ -190,3 +190,96 @@ func TestInt_ReturnsUnderlyingParseError(t *testing.T) {
 		t.Errorf("expected underlying strconv error to mention the bad input, got: %v", err)
 	}
 }
+
+// -------------------------------------------------------------------------------------------
+func TestInt_MinLength_TooShortThenValid(t *testing.T) {
+	// "5" is 1 char, fails MinLength(4); "1234" is 4 chars, passes.
+	withInput(t, "5", "1234")
+
+	got, err := Int(MinLength(4), MaxAttempt(2))
+	if err != nil {
+		t.Fatalf("expected no error after retry, got %v", err)
+	}
+	if got != 1234 {
+		t.Errorf("expected 1234, got %d", got)
+	}
+}
+
+func TestInt_MinLength_ExhaustsAttempts(t *testing.T) {
+	// Both lines are too short for MinLength(4); should fail after 2 attempts.
+	withInput(t, "1", "22")
+
+	got, err := Int(MinLength(4), MaxAttempt(2))
+	if err == nil {
+		t.Fatalf("expected an error, got value=%d", got)
+	}
+	if got != 0 {
+		t.Errorf("expected zero value on failure, got %d", got)
+	}
+}
+
+func TestInt_MaxLength_TooLongThenValid(t *testing.T) {
+	// "123456" is 6 chars, fails MaxLength(4); "12" is 2 chars, passes.
+	withInput(t, "123456", "12")
+
+	got, err := Int(MaxLength(4), MaxAttempt(2))
+	if err != nil {
+		t.Fatalf("expected no error after retry, got %v", err)
+	}
+	if got != 12 {
+		t.Errorf("expected 12, got %d", got)
+	}
+}
+
+func TestInt_MaxLength_ExhaustsAttempts(t *testing.T) {
+	// Both lines exceed MaxLength(3); should fail after 2 attempts.
+	withInput(t, "9999", "88888")
+
+	got, err := Int(MaxLength(3), MaxAttempt(2))
+	if err == nil {
+		t.Fatalf("expected an error, got value=%d", got)
+	}
+	if got != 0 {
+		t.Errorf("expected zero value on failure, got %d", got)
+	}
+}
+
+func TestInt_MinAndMaxLength_WithinRangeSucceeds(t *testing.T) {
+	// "4567" is 4 chars, within MinLength(4)/MaxLength(6).
+	withInput(t, "4567")
+
+	got, err := Int(MinLength(4), MaxLength(6))
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+	if got != 4567 {
+		t.Errorf("expected 4567, got %d", got)
+	}
+}
+
+func TestInt_MinAndMaxLength_RejectsBothEnds(t *testing.T) {
+	// "1" (too short) then "1234567" (too long), both rejected, then "999" (valid, 3 chars).
+	withInput(t, "1", "1234567", "999")
+
+	got, err := Int(MinLength(2), MaxLength(6), MaxAttempt(3))
+	if err != nil {
+		t.Fatalf("expected no error after retries, got %v", err)
+	}
+	if got != 999 {
+		t.Errorf("expected 999, got %d", got)
+	}
+}
+
+func TestInt_MinLength_IgnoresLeadingTrailingSpaces(t *testing.T) {
+	// "  12  " trims to "12" (2 chars) - should fail MinLength(3) despite
+	// the raw string being longer than 3 chars before trimming.
+	withInput(t, "  12  ")
+
+	got, err := Int(MinLength(3))
+	if err == nil {
+		t.Fatalf("expected an error due to trimmed length, got value=%d", got)
+	}
+	if got != 0 {
+		t.Errorf("expected zero value on failure, got %d", got)
+	}
+}
