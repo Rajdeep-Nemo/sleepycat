@@ -42,6 +42,7 @@ func main() {
 
 * `Int()`
 * `Float64()`
+* `Float32()`
 
 ### Options
 
@@ -58,9 +59,10 @@ sleepycat/
 │   └── workflows/
 │       └── ci.yml              # Continuous integration
 │
-├── examples/
-│   └── int/
-│       └── main.go             # Example program
+├── examples/                   # Example programs
+│   ├── int/
+│   │   └── main.go             
+│   └── ...
 │
 ├── internal/
 │   └── input.go                # Terminal input helpers
@@ -69,10 +71,12 @@ sleepycat/
 ├── parser.go                   # Shared parsing/retry logic
 ├── int.go                      # Integer input
 ├── float64.go                  # 64 bit float input
+├── float32.go                  # 32 bit float input
 │
 ├── helpers_test.go             # Shared helper functions
 ├── int_test.go
 ├── float64_test.go
+├── float32_test.go
 │
 ├── .gitignore
 ├── go.mod
@@ -89,6 +93,7 @@ sleepycat/
 | `config.go`            | Defines the internal configuration, functional options, and default values.               |
 | `parser.go`            | Implements the shared input loop (prompt → read → parse → retry).                         |
 | `int.go`               | Public `Int()` input function.                                                            |
+| `float32.go`           | Public `Float32()` input function.                                                        |
 | `float64.go`           | Public `Float64()` input function.                                                        |
 | `internal/input.go`    | Reads raw input from an `io.Reader`. Used internally by the package.                      |
 | `examples/`            | Runnable examples demonstrating the public API.                                           |
