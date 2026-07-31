@@ -27,6 +27,9 @@ func Prompt(inputPrompt string) option {
 
 func MaxAttempt(count int) option {
 	return func(c *config) {
+		if count < 0 {
+			count = 1
+		}
 		c.maxAttempt = count
 	}
 }
