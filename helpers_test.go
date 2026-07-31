@@ -1,3 +1,5 @@
+// This file contains helper functions used in '*_test.go'
+
 package sleepycat
 
 import (
@@ -22,7 +24,7 @@ func (l *lineReader) Read(p []byte) (int, error) {
 		l.lines[l.pos] = line[n:]
 		return n, nil
 	}
-	l.pos++
+	l.pos += 1
 	return n, nil
 }
 

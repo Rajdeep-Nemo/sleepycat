@@ -7,6 +7,7 @@ import (
 	"github.com/Rajdeep-Nemo/sleepycat/internal"
 )
 
+// Checks the length as per provided MinLength and MaxLength
 func checkLength(text string, cfg config) error {
 	length := len([]rune(strings.TrimSpace(text)))
 	switch {
@@ -18,6 +19,8 @@ func checkLength(text string, cfg config) error {
 	return nil
 }
 
+// Checks for valid option values and take a parsing method,
+// uses that method to parse the input string following options
 func input[T any](parse func(string) (T, error), opts ...option) (T, error) {
 	cfg := defaultConfig()
 	for _, opt := range opts {
