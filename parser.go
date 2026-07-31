@@ -23,10 +23,21 @@ func input[T any](parse func(string) (T, error), opts ...option) (T, error) {
 	for _, opt := range opts {
 		opt(&cfg)
 	}
+	var zero T
+
+	// Option parameter validation
+	if cfg.minLength < 0 {
+		return zero, fmt.Errorf("sleepycat: MinLength must be >= 0, got %d", cfg.minLength)
+	}
+	if cfg.maxLength < -1 {
+		return zero, fmt.Errorf("sleepycat: MaxLength must be >= -1, got %d", cfg.maxLength)
+	}
+	if cfg.maxLength != -1 && cfg.maxLength < cfg.minLength {
+		return zero, fmt.Errorf("sleepycat: MaxLength (%d) must not be less than MinLength (%d)", cfg.maxLength, cfg.minLength)
+	}
 
 	attempts := 0
 	for {
-		var zero T
 		text, err := internal.Read(cfg.prompt)
 		if err != nil {
 			return zero, err
