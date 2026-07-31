@@ -86,16 +86,3 @@ sleepycat/
 └── README.md
 ```
 
-### Responsibilities
-
-| File                   | Responsibility                                                                            |
-| ---------------------- | ----------------------------------------------------------------------------------------- |
-| `config.go`            | Defines the internal configuration, functional options, and default values.               |
-| `parser.go`            | Implements the shared input loop (prompt → read → parse → retry).                         |
-| `int.go`               | Public `Int()` input function.                                                            |
-| `float32.go`           | Public `Float32()` input function.                                                        |
-| `float64.go`           | Public `Float64()` input function.                                                        |
-| `internal/input.go`    | Reads raw input from an `io.Reader`. Used internally by the package.                      |
-| `examples/`            | Runnable examples demonstrating the public API.                                           |
-| `helpers_test.go`      | Helper functions for testing.                                                             |
-| `*_test.go`            | Unit tests for each public input type.                                                    |
