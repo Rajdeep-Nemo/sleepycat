@@ -31,4 +31,3 @@ func MaxAttempt(count int) option {
 		c.maxAttempt = count
 	}
 }
-
