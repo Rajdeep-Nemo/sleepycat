@@ -48,8 +48,6 @@ func main() {
 
 * `Prompt()`
 * `MaxAttempt()`
-* `MinLength()`
-* `MaxLength()`
 
 ## Project Structure
 
@@ -62,7 +60,7 @@ sleepycat/
 ├── examples/                   # Example programs
 │   ├── int/
 │   │   └── main.go             
-│   └── ...
+│   └── ...                     # More Examples
 │
 ├── internal/
 │   └── input.go                # Terminal input helpers
