@@ -41,15 +41,13 @@ func main() {
 ### Input
 
 * `Int()`
-* `Float64()`
 * `Float32()`
+* `Float64()`
 
 ### Options
 
 * `Prompt()`
 * `MaxAttempt()`
-* `MinLength()`
-* `MaxLength()`
 
 ## Project Structure
 
@@ -62,7 +60,7 @@ sleepycat/
 ├── examples/                   # Example programs
 │   ├── int/
 │   │   └── main.go             
-│   └── ...
+│   └── ...                     # More Examples
 │
 ├── internal/
 │   └── input.go                # Terminal input helpers
@@ -70,13 +68,13 @@ sleepycat/
 ├── config.go                   # Config and functional options
 ├── parser.go                   # Shared parsing/retry logic
 ├── int.go                      # Integer input
-├── float64.go                  # 64 bit float input
 ├── float32.go                  # 32 bit float input
+├── float64.go                  # 64 bit float input
 │
 ├── helpers_test.go             # Shared helper functions
 ├── int_test.go
-├── float64_test.go
 ├── float32_test.go
+├── float64_test.go
 │
 ├── .gitignore
 ├── go.mod
@@ -85,4 +83,3 @@ sleepycat/
 ├── CHANGELOG.md
 └── README.md
 ```
-
