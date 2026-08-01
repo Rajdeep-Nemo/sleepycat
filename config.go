@@ -4,9 +4,6 @@ package sleepycat
 type config struct {
 	prompt     string // Input prompt
 	maxAttempt int    // Maximum attempt before proper input
-	mask       rune   // Mask the input with provided symbol
-	minLength  int    // Minimum length
-	maxLength  int    // Maximum length
 }
 
 // Option configures the behavior of an input function.
@@ -17,8 +14,6 @@ func defaultConfig() config {
 	return config{
 		prompt:     "",
 		maxAttempt: 1,
-		minLength:  1,
-		maxLength:  -1,
 	}
 }
 
@@ -37,17 +32,3 @@ func MaxAttempt(count int) option {
 	}
 }
 
-// MinLength determines the minimum length required.
-// Setting it to 0 means empty input is allowed
-func MinLength(min int) option {
-	return func(c *config) {
-		c.minLength = min
-	}
-}
-
-// MaxLength determines the maximum number allowed.
-func MaxLength(max int) option {
-	return func(c *config) {
-		c.maxLength = max
-	}
-}
