@@ -167,27 +167,3 @@ func TestFloat32_PrecisionWithinFloat32Range(t *testing.T) {
 		t.Errorf("expected %v, got %v", want, got)
 	}
 }
-
-func TestFloat32_MinLength_TooShortThenValid(t *testing.T) {
-	withInput(t, "1", "1.25")
-
-	got, err := Float32(MinLength(4), MaxAttempt(2))
-	if err != nil {
-		t.Fatalf("expected no error after retry, got %v", err)
-	}
-	if got != float32(1.25) {
-		t.Errorf("expected 1.25, got %v", got)
-	}
-}
-
-func TestFloat32_MaxLength_TooLongThenValid(t *testing.T) {
-	withInput(t, "3.14159", "3.1")
-
-	got, err := Float32(MaxLength(4), MaxAttempt(2))
-	if err != nil {
-		t.Fatalf("expected no error after retry, got %v", err)
-	}
-	if got != float32(3.1) {
-		t.Errorf("expected 3.1, got %v", got)
-	}
-}

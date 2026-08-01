@@ -2,22 +2,9 @@ package sleepycat
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/Rajdeep-Nemo/sleepycat/internal"
 )
-
-// Checks the length as per provided MinLength and MaxLength
-func checkLength(text string, cfg config) error {
-	length := len([]rune(strings.TrimSpace(text)))
-	switch {
-	case length < cfg.minLength:
-		return fmt.Errorf("min %d chars", cfg.minLength)
-	case cfg.maxLength != -1 && length > cfg.maxLength:
-		return fmt.Errorf("max %d chars", cfg.maxLength)
-	}
-	return nil
-}
 
 // Checks for valid option values and take a parsing method,
 // uses that method to parse the input string following options
@@ -28,15 +15,8 @@ func input[T any](parse func(string) (T, error), opts ...option) (T, error) {
 	}
 	var zero T
 
-	// Option parameter validation
-	if cfg.minLength < 0 {
-		return zero, fmt.Errorf("sleepycat: MinLength must be >= 0, got %d", cfg.minLength)
-	}
-	if cfg.maxLength < -1 {
-		return zero, fmt.Errorf("sleepycat: MaxLength must be >= -1, got %d", cfg.maxLength)
-	}
-	if cfg.maxLength != -1 && cfg.maxLength < cfg.minLength {
-		return zero, fmt.Errorf("sleepycat: MaxLength (%d) must not be less than MinLength (%d)", cfg.maxLength, cfg.minLength)
+	if cfg.maxAttempt < 0 {
+		return zero, fmt.Errorf("sleepycat: MaxAttempt must be >= 0, got %d", cfg.maxAttempt)
 	}
 
 	attempts := 0
@@ -45,15 +25,6 @@ func input[T any](parse func(string) (T, error), opts ...option) (T, error) {
 		if err != nil {
 			return zero, err
 		}
-
-		if lenErr := checkLength(text, cfg); lenErr != nil {
-			attempts += 1
-			if cfg.maxAttempt != 0 && attempts >= cfg.maxAttempt {
-				return zero, lenErr
-			}
-			continue
-		}
-
 		value, err := parse(text)
 		if err == nil {
 			return value, nil
