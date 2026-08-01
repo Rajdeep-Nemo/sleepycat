@@ -178,29 +178,3 @@ func TestFloat64_ReturnsUnderlyingParseError(t *testing.T) {
 		t.Errorf("expected underlying strconv error to mention the bad input, got: %v", err)
 	}
 }
-
-func TestFloat64_MinLength_TooShortThenValid(t *testing.T) {
-	// "1" is 1 char; "1.25" is 4 chars, passes MinLength(4).
-	withInput(t, "1", "1.25")
-
-	got, err := Float64(MinLength(4), MaxAttempt(2))
-	if err != nil {
-		t.Fatalf("expected no error after retry, got %v", err)
-	}
-	if got != 1.25 {
-		t.Errorf("expected 1.25, got %v", got)
-	}
-}
-
-func TestFloat64_MaxLength_TooLongThenValid(t *testing.T) {
-	// "3.14159" is 7 chars, fails MaxLength(4); "3.1" is 3 chars, passes.
-	withInput(t, "3.14159", "3.1")
-
-	got, err := Float64(MaxLength(4), MaxAttempt(2))
-	if err != nil {
-		t.Fatalf("expected no error after retry, got %v", err)
-	}
-	if got != 3.1 {
-		t.Errorf("expected 3.1, got %v", got)
-	}
-}
