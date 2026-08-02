@@ -43,6 +43,7 @@ func main() {
 * `Int()`
 * `Float32()`
 * `Float64()`
+* `Bool()`
 
 ### Options
 
@@ -70,11 +71,13 @@ sleepycat/
 ├── int.go                      # Integer input
 ├── float32.go                  # 32 bit float input
 ├── float64.go                  # 64 bit float input
+├── ...                         # Other inputs
 │
 ├── helpers_test.go             # Shared helper functions
 ├── int_test.go
 ├── float32_test.go
 ├── float64_test.go
+├── ...                         # Other test cases
 │
 ├── .gitignore
 ├── go.mod
