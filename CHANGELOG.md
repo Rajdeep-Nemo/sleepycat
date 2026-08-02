@@ -11,3 +11,4 @@ Removed length check options
 
 02-Aug-2026:
 Added Bool() input function for `bool`
+Added String() input function for `string`
