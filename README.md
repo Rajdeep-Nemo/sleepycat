@@ -44,6 +44,7 @@ func main() {
 * `Float32()`
 * `Float64()`
 * `Bool()`
+* `String()`
 
 ### Options
 
