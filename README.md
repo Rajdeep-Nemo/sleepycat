@@ -86,6 +86,5 @@ sleepycat/
 ├── go.mod
 ├── go.sum
 ├── LICENSE
-├── CHANGELOG.md
 └── README.md
 ```
