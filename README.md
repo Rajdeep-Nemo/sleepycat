@@ -25,13 +25,14 @@ import (
 
 func main() {
 	age, err := sleepycat.Int(
-		sleepycat.Prompt("Age: "),
+		sleepycat.Prompt("Enter age: "),
 		sleepycat.MaxAttempts(3),
 	)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(0)
 	}
-
+	
 	fmt.Println(age)
 }
 ```
@@ -45,6 +46,7 @@ func main() {
 * `Float64()`
 * `Bool()`
 * `String()`
+* `Byte()`
 
 ### Options
 
