@@ -48,6 +48,7 @@ func main() {
 * `Bool()`
 * `String()`
 * `Byte()`
+* `Rune()`
 
 ### Options
 
