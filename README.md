@@ -19,6 +19,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/Rajdeep-Nemo/sleepycat"
 )
@@ -26,13 +27,13 @@ import (
 func main() {
 	age, err := sleepycat.Int(
 		sleepycat.Prompt("Enter age: "),
-		sleepycat.MaxAttempts(3),
+		sleepycat.MaxAttempt(3),
 	)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	
+
 	fmt.Println(age)
 }
 ```
